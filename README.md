@@ -6,7 +6,7 @@ See https://github.com/CodeFinder2/Stage for more information.
 # How to use
 ```
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:CodeFinder2/stage-simulator#main")
+CPMAddPackage("gh:CodeFinder2/stage-simulator#master")
 # ...
 add_executable(my_app stage-simulator)
 ```
