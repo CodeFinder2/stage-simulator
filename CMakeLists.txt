@@ -18,6 +18,9 @@ if(NOT OPENGL_GLU_FOUND)
 endif()
 include(cmake/CPM.cmake)
 CPMAddPackage("gh:CodeFinder2/embed-resource#master")
+message(STATUS "Checking for Libtool..." )
+find_path(LTDL_INCLUDE_DIR ltdl.h DOC "Libtool include dir")
+find_library(LTDL_LIB ltdl DOC "Libtool lib")
 
 # Declare library and settings:
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS src/*.cc)
@@ -28,9 +31,9 @@ embed_resources(ASSETS
 )
 add_library(${PROJECT_NAME} ${SRC_FILES} ${ASSETS})
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall) # TODO: allow -Wextra -pedantic
-target_link_libraries(${PROJECT_NAME} embed_resource ${FLTK_LIBRARIES} ${OPENGL_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${LTDL_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} embed_resource ${FLTK_LIBRARIES} ${OPENGL_LIBRARIES} ${LTDL_LIB})
 configure_file(include/${PROJECT_NAME}/config.hh.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/config.hh @ONLY)
 
 # Install section:
