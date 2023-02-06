@@ -28,7 +28,7 @@ embed_resources(ASSETS
 )
 add_library(${PROJECT_NAME} ${SRC_FILES} ${ASSETS})
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall) # TODO: allow -Wextra -pedantic
-target_link_libraries(${PROJECT_NAME} embed_resource ${FLTK_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} embed_resource ${FLTK_LIBRARIES} ${OPENGL_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 configure_file(include/${PROJECT_NAME}/config.hh.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/config.hh @ONLY)
