@@ -1,7 +1,16 @@
 cmake_minimum_required(VERSION 3.11)
 project(stage-simulator VERSION 4.4.0)
 
+set(default_build_type "Release")
+if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+  set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()
+
 # Dependencies:
+set(FLTK_SKIP_FLUID TRUE)
 find_package(FLTK REQUIRED)
 find_package(OpenGL REQUIRED)
 if(NOT OPENGL_GLU_FOUND)
@@ -19,7 +28,7 @@ embed_resources(ASSETS
 )
 add_library(${PROJECT_NAME} ${SRC_FILES} ${ASSETS})
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall) # TODO: allow -Wextra -pedantic
-target_link_libraries(${PROJECT_NAME} embed_resource)
+target_link_libraries(${PROJECT_NAME} embed_resource ${FLTK_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 configure_file(include/${PROJECT_NAME}/config.hh.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/config.hh @ONLY)
