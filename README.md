@@ -3,6 +3,15 @@ This project provides the 2.5D robot simulator "Stage" as CMake compatible libra
 
 See https://github.com/CodeFinder2/Stage for more information.
 
+# Compiling
+Getting started on Ubuntu 20.04:
+```bash
+sudo apt install git cmake build-essential libfltk1.3-dev libltdl-dev libpng-dev libjpeg-dev
+git clone https://github.com/CodeFinder2/stage-simulator.git
+cd stage-simulator && mkdir build && cd build
+cmake .. && make -j$(nproc)
+```
+
 # How to use
 ```
 include(cmake/CPM.cmake)
