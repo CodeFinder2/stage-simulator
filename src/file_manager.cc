@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-std::string searchDirs(const std::vector<std::string> &dirs, const std::string &filename)
+static std::string searchDirs(const std::vector<std::string> &dirs, const std::string &filename)
 {
   for (unsigned int i = 0; i < dirs.size(); i++) {
     std::string path = dirs[i] + '/' + filename;

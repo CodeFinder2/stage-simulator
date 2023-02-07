@@ -746,12 +746,12 @@ void WorldGui::optionsDlgCb(OptionsDlg *oDlg, WorldGui *wg)
   }
 }
 
-void aboutOKBtnCb(Fl_Return_Button *btn, void *)
+static void aboutOKBtnCb(Fl_Return_Button *btn, void *)
 {
   btn->window()->do_callback();
 }
 
-void aboutCloseCb(Fl_Window *win, Fl_Text_Display *textDisplay)
+static void aboutCloseCb(Fl_Window *win, Fl_Text_Display *textDisplay)
 {
   Fl_Text_Buffer *tbuf = textDisplay->buffer();
   textDisplay->buffer(NULL);

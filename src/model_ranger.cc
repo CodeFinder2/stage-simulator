@@ -170,7 +170,7 @@ static bool ranger_match(Model *hit, const Model *finder, const void *dummy)
 }
 
 // Returns random numbers in range [-1.0, 1.0)
-double simpleNoise()
+static double simpleNoise()
 {
   return 2 * (rand() % 1000 * 0.001 - 0.5);
 }

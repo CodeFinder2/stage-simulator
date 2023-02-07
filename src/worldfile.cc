@@ -1315,7 +1315,7 @@ int Worldfile::LookupEntity(const char *type)
   return -1;
 }
 
-void PrintProp(const char *key, CProperty *prop)
+static void PrintProp(const char *key, CProperty *prop)
 {
   if (prop)
     printf("Print key %s prop ent %d name %s\n", key, prop->entity, prop->name.c_str());

@@ -80,7 +80,7 @@ static inline bool pixel_is_set(uint8_t *pixels, const unsigned int width, const
   return ((pixels + (y * width * depth) + x * depth)[0] > threshold);
 }
 
-double direction(double a)
+static double direction(double a)
 {
   if (a == 0.0)
     return 0;

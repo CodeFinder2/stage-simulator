@@ -73,7 +73,7 @@ positioning, and tilt is the up-down positioning.
 */
 
 // calculate the cross product, and store results in the first vertex
-void cross(float &x1, float &y1, float &z1, float x2, float y2, float z2)
+static void cross(float &x1, float &y1, float &z1, float x2, float y2, float z2)
 {
   float x3, y3, z3;
 

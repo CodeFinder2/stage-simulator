@@ -13,7 +13,7 @@ Option::Option(const std::string &n, const std::string &tok, const std::string &
   /* do nothing */
 }
 
-Fl_Menu_Item *getMenuItem(Fl_Menu_ *menu, int i)
+static Fl_Menu_Item *getMenuItem(Fl_Menu_ *menu, int i)
 {
   const Fl_Menu_Item *mArr = menu->menu();
   return const_cast<Fl_Menu_Item *>(&mArr[i]);
