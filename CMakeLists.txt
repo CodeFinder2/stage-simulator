@@ -12,6 +12,7 @@ endif()
 # Dependencies:
 set(FLTK_SKIP_FLUID TRUE)
 find_package(FLTK REQUIRED)
+set(OpenGL_GL_PREFERENCE "GLVND")
 find_package(OpenGL REQUIRED)
 if(NOT OPENGL_GLU_FOUND)
   message(FATAL_ERROR "OpenGL GLU not found, aborting")
