@@ -129,24 +129,26 @@ void Canvas::InitGl()
 void Canvas::InitTextures()
 {
   // load textures
-  std::string fullpath = FileManager::findFile("assets/stall.png");
-  if (fullpath == "") {
-    PRINT_DEBUG("Unable to load stall texture.\n");
-  }
+  Resource stall_res = LOAD_RESOURCE(assets_stall_png);
+  // std::string fullpath = FileManager::findFile("assets/stall.png");
+  // if (fullpath == "") {
+  //   PRINT_DEBUG("Unable to load stall texture.\n");
+  // }
 
   // printf( "stall icon %s\n", fullpath.c_str() );
 
-  GLuint stall_id = TextureManager::getInstance().loadTexture(fullpath.c_str());
+  GLuint stall_id = TextureManager::getInstance().loadTexture("stall", stall_res);
   TextureManager::getInstance()._stall_texture_id = stall_id;
 
-  fullpath = FileManager::findFile("assets/mainspower.png");
-  if (fullpath == "") {
-    PRINT_DEBUG("Unable to load mains texture.\n");
-  }
+  Resource mainspower_res = LOAD_RESOURCE(assets_mainspower_png);
+  // fullpath = FileManager::findFile("assets/mainspower.png");
+  // if (fullpath == "") {
+  //   PRINT_DEBUG("Unable to load mains texture.\n");
+  // }
 
   //	printf( "mains icon %s\n", fullpath.c_str() );
 
-  GLuint mains_id = TextureManager::getInstance().loadTexture(fullpath.c_str());
+  GLuint mains_id = TextureManager::getInstance().loadTexture("mainspower", mainspower_res);
   TextureManager::getInstance()._mains_texture_id = mains_id;
 
   //   // generate a small glow texture

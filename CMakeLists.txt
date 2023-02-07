@@ -27,6 +27,7 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS src/*.cc)
 embed_resources(ASSETS
   assets/rgb.txt
   assets/stagelogo.png
+  assets/mainspower.png
   assets/stall.png
 )
 add_library(${PROJECT_NAME} ${SRC_FILES} ${ASSETS})

@@ -6,28 +6,31 @@
  *  $Id$
  */
 
+#include <FL/Fl_PNG_Image.H>
+
 #include "stage-simulator/texture_manager.hh"
 #include "stage-simulator/file_manager.hh"
 #include <sstream>
 using namespace Stg;
 
-GLuint TextureManager::loadTexture(const char *filename)
+
+GLuint TextureManager::loadTexture(const char *image_name, Resource res)
 {
   //    if( filename == NULL )
   //      return 0;
 
   GLuint texName;
-  Fl_Shared_Image *img = Fl_Shared_Image::get(filename);
+  Fl_Shared_Image *img = Fl_Shared_Image::get(new Fl_PNG_Image(image_name, reinterpret_cast<const unsigned char*>(res.data()), res.size()), 1);
 
   if (img == NULL) {
-    fprintf(stderr, "unable to open image: %s\n", filename);
+    fprintf(stderr, "unable to open image: %s\n", image_name);
     // exit(-1);
     return 0;
   }
 
   // TODO display an error for incorrect depths
   if (img->d() != 3 && img->d() != 4) {
-    fprintf(stderr, "unable to open image: %s - incorrect depth - should be 3 or 4\n", filename);
+    fprintf(stderr, "unable to open image: %s - incorrect depth - should be 3 or 4\n", image_name);
     return 0;
   }
 

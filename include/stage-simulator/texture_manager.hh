@@ -11,7 +11,7 @@
 #include "stage.hh"
 
 #include <FL/Fl_Shared_Image.H>
-#include <iostream>
+#include <embed_resource/loader.h>
 
 namespace Stg {
 /// Singleton for loading textures (not threadsafe)
@@ -35,7 +35,7 @@ public:
   }
 
   /// load a texture on the GPU, returned value is the texture ID, or 0 for failure
-  GLuint loadTexture(const char *filename);
+  GLuint loadTexture(const char *image_name, Resource res);
 };
 }
 #endif //_TEXTURE_MANAGER_H_
