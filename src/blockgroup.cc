@@ -193,14 +193,25 @@ void BlockGroup::BuildDisplayList()
     assert(tobj != NULL);
 
     // these use the standard GL calls
-    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(*)()) & glVertex3dv);
-    gluTessCallback(tobj, GLU_TESS_EDGE_FLAG, (GLvoid(*)()) & glEdgeFlag);
-    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(*)()) & glBegin);
-    gluTessCallback(tobj, GLU_TESS_END, (GLvoid(*)()) & glEnd);
+    gluTessCallback(tobj, GLU_TESS_VERTEX, reinterpret_cast<_GLUfuncptr>(&glVertex3dv));
+    gluTessCallback(tobj, GLU_TESS_EDGE_FLAG, reinterpret_cast<_GLUfuncptr>(&glEdgeFlag));
+    gluTessCallback(tobj, GLU_TESS_BEGIN, reinterpret_cast<_GLUfuncptr>(&glBegin));
+    gluTessCallback(tobj, GLU_TESS_END, reinterpret_cast<_GLUfuncptr>(&glEnd));
 
     // these are custom, defined above.
-    gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid(*)()) & errorCallback);
-    gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(*)()) & combineCallback);
+    gluTessCallback(tobj, GLU_TESS_ERROR, reinterpret_cast<_GLUfuncptr>(&errorCallback));
+    gluTessCallback(tobj, GLU_TESS_COMBINE, reinterpret_cast<_GLUfuncptr>(&combineCallback));
+
+
+    // these use the standard GL calls (old code, fails with -Werror)
+    // gluTessCallback(tobj, GLU_TESS_VERTEX, ((GLvoid(*)()) & glVertex3dv);
+    // gluTessCallback(tobj, GLU_TESS_EDGE_FLAG, (GLvoid(*)()) & glEdgeFlag);
+    // gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(*)()) & glBegin);
+    // gluTessCallback(tobj, GLU_TESS_END, (GLvoid(*)()) & glEnd);
+
+    // // these are custom, defined above.
+    // gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid(*)()) & errorCallback);
+    // gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(*)()) & combineCallback);
   }
 
   std::vector<std::vector<GLdouble> > contours;

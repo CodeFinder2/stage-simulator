@@ -515,6 +515,7 @@ void WorldGui::windowCb(Fl_Widget *, WorldGui *wg)
   case FL_SHORTCUT:
     if (Fl::event_key() == FL_Escape)
       return;
+    // fallthrough
   case FL_CLOSE: // clicked close button
     bool done = wg->closeWindowQuery();
     if (!done)
@@ -719,6 +720,7 @@ void WorldGui::optionsDlgCb(OptionsDlg *oDlg, WorldGui *wg)
   case FL_SHORTCUT:
     if (Fl::event_key() != FL_Escape)
       break; // return
+    // fallthrough
   // otherwise, ESC pressed-> do as below
   case FL_CLOSE: // clicked close button
     // override event to close

@@ -34,7 +34,7 @@ embed_resources(ASSETS
   assets/stall.png
 )
 add_library(${PROJECT_NAME} ${SRC_FILES} ${ASSETS})
-target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall) # TODO: allow -Wextra -pedantic
+target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall -pedantic -Wextra) # TODO: allow -Wextra -pedantic
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_BINARY_DIR}
