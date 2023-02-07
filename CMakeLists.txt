@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(stage-simulator VERSION 4.4.0)
+project(stage-simulator VERSION 1.0.0)
 
 set(default_build_type "Release")
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
