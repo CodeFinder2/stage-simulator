@@ -150,6 +150,7 @@ then select the option from the menu again to stop.
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_Shared_Image.H>
 #include <FL/Fl_Text_Display.H>
+#include <embed_resource/loader.h>
 
 #include <algorithm> // for std::sort
 #include <iomanip>
@@ -770,9 +771,8 @@ void WorldGui::helpAboutCb(Fl_Widget *, WorldGui *)
 
   Fl_Box *box = new Fl_Box(Spc, Spc, Width - 2 * Spc, pngH); // widget that will contain image
 
-  std::string fullpath = FileManager::findFile("assets/stagelogo.png");
-
-  box->image(new Fl_PNG_Image(fullpath.c_str())); // load image and attach image to box
+  Resource res = LOAD_RESOURCE(assets_stagelogo_png);
+  box->image(new Fl_PNG_Image("stagelogo", reinterpret_cast<const unsigned char*>(res.data()), res.size())); // load image and attach image to box
 
   Fl_Text_Display *textDisplay =
       new Fl_Text_Display(Spc, pngH + 2 * Spc, Width - 2 * Spc, Height - pngH - ButtonH - 4 * Spc);

@@ -5,6 +5,8 @@ using namespace Stg;
 #include "stage-simulator/file_manager.hh"
 
 #include <errno.h>
+#include <sstream>
+#include <embed_resource/loader.h>
 
 Color::Color(double r, double g, double b, double a) : r(r), g(g), b(b), a(a)
 {
@@ -26,50 +28,35 @@ Color::Color(const std::string &name) : r(1), g(0), b(0), a(1)
   if (name == "") // empty string?
     return; // red
 
-  static FILE *file = NULL;
+  static bool loaded = false;
   static std::map<std::string, Color> table;
 
-  if (file == NULL) {
-    std::string rgbFile = FileManager::findFile("rgb.txt");
-    file = fopen(rgbFile.c_str(), "r");
-
-    if (file == NULL) {
-      PRINT_ERR1("unable to open color database: %s "
-                 "(try adding rgb.txt's location to your STAGEPATH)",
-                 strerror(errno));
-
-      exit(0);
-    }
-
-    PRINT_DEBUG("Success!");
-
-    // load the file into the map
-    while (1) {
-      char line[1024];
-      if (!fgets(line, sizeof(line), file))
-        break;
-
+  if (!loaded) {
+    loaded = true;
+    Resource res = LOAD_RESOURCE(assets_rgb_txt);
+    std::istringstream buffer(res.data());
+    std::string line;
+    // load the data into the map
+    while (getline(buffer, line)) {
       // it's a macro or comment line - ignore the line
       // also ignore empty lines
       if (line[0] == '!' || line[0] == '#' || line[0] == '%' || line[0] == '\0')
         continue;
 
       // Trim the trailing space
-      while (strchr(" \t\n", line[strlen(line) - 1]))
-        line[strlen(line) - 1] = 0;
+      line.erase(line.find_last_not_of(" \t\n") + 1);
 
       // Read the color
       int r, g, b;
       int chars_matched = 0;
-      sscanf(line, "%d %d %d %n", &r, &g, &b, &chars_matched);
+      sscanf(line.c_str(), "%d %d %d %n", &r, &g, &b, &chars_matched);
 
       // Read the name
-      const char *colorname = line + chars_matched;
+      const char *colorname = line.c_str() + chars_matched;
 
       // map the name to the color in the table
       table[colorname] = Color(r / 255.0, g / 255.0, b / 255.0);
     }
-    fclose(file);
   }
 
   // look up the colorname in the database
