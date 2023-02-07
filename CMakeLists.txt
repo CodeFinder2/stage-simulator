@@ -12,14 +12,16 @@ endif()
 # Dependencies:
 set(FLTK_SKIP_FLUID TRUE)
 find_package(FLTK REQUIRED)
-set(OpenGL_GL_PREFERENCE "GLVND")
+set(OpenGL_GL_PREFERENCE LEGACY)
 find_package(OpenGL REQUIRED)
 if(NOT OPENGL_GLU_FOUND)
-  message(FATAL_ERROR "OpenGL GLU not found, aborting")
+  message(FATAL_ERROR "OpenGL GLU not found, aborting.")
 endif()
+find_package(JPEG REQUIRED)
+find_package(PNG REQUIRED)
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:CodeFinder2/embed-resource#master")
-message(STATUS "Checking for Libtool..." )
+CPMAddPackage("gh:CodeFinder2/embed-resource@0.1")
+message(STATUS "Checking for Libtool.")
 find_path(LTDL_INCLUDE_DIR ltdl.h DOC "Libtool include dir")
 find_library(LTDL_LIB ltdl DOC "Libtool lib")
 
@@ -34,8 +36,20 @@ embed_resources(ASSETS
 add_library(${PROJECT_NAME} ${SRC_FILES} ${ASSETS})
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall) # TODO: allow -Wextra -pedantic
 target_include_directories(${PROJECT_NAME} PUBLIC include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${LTDL_INCLUDE_DIR})
-target_link_libraries(${PROJECT_NAME} embed_resource ${FLTK_LIBRARIES} ${OPENGL_LIBRARIES} ${LTDL_LIB})
+target_include_directories(${PROJECT_NAME} PRIVATE
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${LTDL_INCLUDE_DIR}
+  ${PNG_INCLUDE_DIR}
+  ${JPEG_INCLUDE_DIR}
+)
+target_link_libraries(${PROJECT_NAME}
+  embed_resource
+  ${FLTK_LIBRARIES}
+  ${OPENGL_LIBRARIES}
+  ${LTDL_LIB}
+  ${PNG_LIBRARIES}
+  ${JPEG_LIBRARIES}
+)
 configure_file(include/${PROJECT_NAME}/config.hh.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/config.hh @ONLY)
 
 # Install section:
