@@ -294,7 +294,7 @@ Model::Model(World *world, Model *parent, const std::string &type, const std::st
 
   AddVisualizer(&rastervis, false);
 
-  PRINT_DEBUG2("finished model %s @ %p", this->Token(), this);
+  PRINT_DEBUG2("finished model %s @ %p", this->Token(), static_cast<void*>(this));
 }
 
 Model::~Model(void)
