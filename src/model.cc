@@ -311,7 +311,7 @@ Model::~Model(void)
     // erase from the static map of all models
     modelsbyid.erase(id);
 
-    world->RemoveModel(this);
+    //world->RemoveModel(this);
   }
 }
 

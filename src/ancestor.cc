@@ -8,8 +8,8 @@ Ancestor::Ancestor() : child_type_counts(), children(), debug(false), props(), t
 
 Ancestor::~Ancestor()
 {
-  FOR_EACH (it, children)
-    delete (*it);
+  //FOR_EACH (it, children)
+  //  delete (*it);
 }
 
 void Ancestor::AddChild(Model *mod)
