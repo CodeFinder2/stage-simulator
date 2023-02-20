@@ -11,7 +11,7 @@ endif()
 
 # Dependencies:
 set(FLTK_SKIP_FLUID TRUE)
-find_package(FLTK REQUIRED)
+find_package(FLTK 1.3 REQUIRED)
 set(OpenGL_GL_PREFERENCE LEGACY)
 find_package(OpenGL REQUIRED)
 if(NOT OPENGL_GLU_FOUND)
