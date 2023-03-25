@@ -1521,6 +1521,14 @@ public:
   virtual void Start();
   virtual void Stop();
 
+  void setSpeedup(double value)
+  {
+    speedup = value;
+    if (!paused) {
+      SetTimeouts();
+    }
+  }
+
   usec_t RealTimeNow(void) const;
 
   void DrawBoundingBoxTree();
